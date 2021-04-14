@@ -5,21 +5,23 @@
  */
 package Modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author alumnodaw
  */
-public class Cliente {
+public class Cliente implements Serializable{
     
-    private String cliente;
+    private String nombre;
     private String apellido1;
     private String apellido2;
     private String estadoCivil;
     private String sexo;
     private int edad;
 
-    public Cliente(String cliente, String apellido1, String apellido2, String estadoCivil, String sexo, int edad) {
-        this.cliente = cliente;
+    public Cliente(String nombre, String apellido1, String apellido2, String estadoCivil, String sexo, int edad) {
+        this.nombre = nombre;
         this.apellido1 = apellido1;
         this.apellido2 = apellido2;
         this.estadoCivil = estadoCivil;
@@ -28,17 +30,17 @@ public class Cliente {
     }
 
     /**
-     * @return the cliente
+     * @return the nombre
      */
-    public String getCliente() {
-        return cliente;
+    public String getNombre() {
+        return nombre;
     }
 
     /**
-     * @param cliente the cliente to set
+     * @param nombre the nombre to set
      */
-    public void setCliente(String cliente) {
-        this.cliente = cliente;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     /**
@@ -113,7 +115,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" + "cliente=" + cliente + ", apellido1=" + apellido1 + ", apellido2=" + apellido2 + ", estadoCivil=" + estadoCivil + ", sexo=" + sexo + ", edad=" + edad + '}';
+        return nombre + " " + apellido1 + " " + apellido2 + " " + estadoCivil + " " + sexo + " " + edad;
     }
     
         
