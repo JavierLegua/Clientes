@@ -5,6 +5,10 @@
  */
 package Vista;
 
+import Modelo.Cliente;
+import static java.lang.System.exit;
+import java.util.ArrayList;
+
 /**
  *
  * @author alumnodaw
@@ -16,6 +20,9 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio() {
         initComponents();
+        vClientes = Controlador.IODatos.cargarDatos();
+        rellenarTextArea();
+        
     }
 
     /**
@@ -59,6 +66,11 @@ public class Inicio extends javax.swing.JFrame {
         jLabelApellido2.setText("Segundo apellido:");
 
         jTextFieldNombre.setText("Escribe tu nombre");
+        jTextFieldNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldNombreFocusGained(evt);
+            }
+        });
         jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombreActionPerformed(evt);
@@ -66,6 +78,11 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         jTextFieldApellido1.setText("Primer apellido");
+        jTextFieldApellido1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldApellido1FocusGained(evt);
+            }
+        });
         jTextFieldApellido1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldApellido1ActionPerformed(evt);
@@ -73,6 +90,11 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         jTextFieldApellido2.setText("Segundo apellido");
+        jTextFieldApellido2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldApellido2FocusGained(evt);
+            }
+        });
 
         jLabelEstadoCivil.setText("Estado civil:");
 
@@ -152,8 +174,18 @@ public class Inicio extends javax.swing.JFrame {
         );
 
         jButtonGuardar.setText("Guardar");
+        jButtonGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonGuardarMouseClicked(evt);
+            }
+        });
 
         jButtonSalir.setText("Salir");
+        jButtonSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonSalirMouseClicked(evt);
+            }
+        });
         jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSalirActionPerformed(evt);
@@ -191,8 +223,8 @@ public class Inicio extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonGuardar)
                 .addGap(31, 31, 31)
-                .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(116, 116, 116))
+                .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(110, 110, 110))
             .addGroup(layout.createSequentialGroup()
                 .addGap(66, 66, 66)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -229,6 +261,67 @@ public class Inicio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
+    private void jTextFieldNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNombreFocusGained
+
+        jTextFieldNombre.setText("");
+        
+    }//GEN-LAST:event_jTextFieldNombreFocusGained
+
+    private void jTextFieldApellido1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldApellido1FocusGained
+        
+         jTextFieldApellido1.setText("");
+        
+    }//GEN-LAST:event_jTextFieldApellido1FocusGained
+
+    private void jTextFieldApellido2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldApellido2FocusGained
+
+        jTextFieldApellido2.setText("");
+        
+    }//GEN-LAST:event_jTextFieldApellido2FocusGained
+
+    private void jButtonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGuardarMouseClicked
+
+        String nombre, apellido1, apellido2, estado, sexo;
+        int edad;
+        
+        nombre = jTextFieldNombre.getText();
+        apellido1 = jTextFieldApellido1.getText();
+        apellido2 = jTextFieldApellido2.getText();
+        estado = (String) jComboBoxEstadoCivil.getSelectedItem();
+        
+        if(jRadioButtonHombre.isSelected()){
+            sexo = "masculino";
+        }else{
+            sexo = "femenino";
+        }
+        
+        edad = Integer.valueOf(jTextFieldEdad.getText());
+        
+        Cliente c = new Cliente(nombre, apellido1, apellido2, estado, sexo, edad);
+        
+        vClientes.add(c);
+        
+        Controlador.IODatos.guardarDatos(vClientes);
+                
+        jTextArea1.setText(jTextArea1.getText() + "\n" +vClientes.toString());
+        
+    }//GEN-LAST:event_jButtonGuardarMouseClicked
+
+    private void jButtonSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSalirMouseClicked
+
+        exit(0);
+        
+    }//GEN-LAST:event_jButtonSalirMouseClicked
+
+    private void rellenarTextArea(){
+        
+        for (Cliente vCliente : vClientes) {
+            jTextArea1.setText(jTextArea1.getText() + "\n" + vCliente.toString());
+        }
+        
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -264,6 +357,7 @@ public class Inicio extends javax.swing.JFrame {
         });
     }
 
+    ArrayList<Cliente> vClientes;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButtonGuardar;
