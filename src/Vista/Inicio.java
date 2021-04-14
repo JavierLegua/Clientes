@@ -8,6 +8,7 @@ package Vista;
 import Modelo.Cliente;
 import static java.lang.System.exit;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -22,6 +23,7 @@ public class Inicio extends javax.swing.JFrame {
         initComponents();
         vClientes = Controlador.IODatos.cargarDatos();
         rellenarTextArea();
+         setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icono2.png")).getImage());
         
     }
 
